@@ -1,5 +1,7 @@
 describe("Arrow Functions", () => {
     it("should be awesome", () => {
+        // arrows share this with surrounding code
+
         var square = x => x * x;
 
         var square2 = x => {
