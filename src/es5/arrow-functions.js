@@ -18,11 +18,34 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
       var objectify = (function(x) {
         return ({value: x});
       });
+      var person = {
+        name: "Bob",
+        belongings: ["Car", "PC"],
+        getProperties: function() {
+          var properties = [];
+          this.belongings.forEach(function(thing) {
+            properties.push(this.name + " has " + thing);
+          });
+          return properties;
+        },
+        getProperties2: function() {
+          var $__0 = this;
+          var properties = [];
+          this.belongings.forEach((function(thing) {
+            properties.push($__0.name + " has " + thing);
+          }));
+          return properties;
+        }
+      };
       expect(square(3)).toEqual(9);
       expect(square2(4)).toEqual(16);
       expect(triangleArea(4, 6)).toEqual(12);
       expect(triangleArea2(3, 4, 5)).toEqual(6);
       expect(objectify("awesome")).toEqual({value: "awesome"});
+      expect((function() {
+        return person.getProperties();
+      })).toThrow(new TypeError("Cannot read property 'name' of undefined"));
+      expect(person.getProperties2()).toEqual(["Bob has Car", "Bob has PC"]);
     }));
   }));
   return {};
