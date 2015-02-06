@@ -7,10 +7,10 @@ describe("Generators", () => {
             yield ++i;
         }
 
-        let k = 1;
-        for(let i of foo()) {
-            expect(i).toEqual(k++);
-        }
+        let seq = foo();
+        expect(seq.next().value).toEqual(1);
+        expect(seq.next().value).toEqual(2);
+        expect(seq.next().value).toEqual(3);
     });
 
     it("should iterate fibonacci using yield", () => {
@@ -50,4 +50,19 @@ describe("Generators", () => {
         }
         expect(nums).toEqual([10, 11, 12, 13, 14, 15, 16, 17]);
     });
+
+    it("should handle \"multiple entry-points\"", () => {
+        // The idea comes from http://youtu.be/s-BwEk-Y4kg?t=14m42s
+        function* powGenerator() {
+            return Math.pow(yield "a", yield "b");
+        }
+
+        let g = powGenerator();
+        expect(g.next().value).toEqual("a");
+        expect(g.next(10).value).toEqual("b");
+        expect(g.next(2).value).toEqual(100);
+    });
+
+    // @TODO ES6 Async Generators
+
 });

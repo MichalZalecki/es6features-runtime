@@ -38,14 +38,10 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
             }
         }, $__6, this);
       }
-      var k = 1;
-      for (var $__1 = foo()[$traceurRuntime.toProperty(Symbol.iterator)](),
-          $__2 = void 0; !($__2 = $__1.next()).done; ) {
-        var i = $__2.value;
-        {
-          expect(i).toEqual(k++);
-        }
-      }
+      var seq = foo();
+      expect(seq.next().value).toEqual(1);
+      expect(seq.next().value).toEqual(2);
+      expect(seq.next().value).toEqual(3);
     }));
     it("should iterate fibonacci using yield", (function() {
       function fibonacci(i) {
@@ -181,6 +177,52 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
         }
       }
       expect(nums).toEqual([10, 11, 12, 13, 14, 15, 16, 17]);
+    }));
+    it("should handle \"multiple entry-points\"", (function() {
+      var $__6 = $traceurRuntime.initGeneratorFunction(powGenerator);
+      function powGenerator() {
+        var $__11,
+            $__12,
+            $__13,
+            $__14;
+        return $traceurRuntime.createGeneratorInstance(function($ctx) {
+          while (true)
+            switch ($ctx.state) {
+              case 0:
+                $__11 = Math.pow;
+                $ctx.state = 10;
+                break;
+              case 10:
+                $ctx.state = 2;
+                return "a";
+              case 2:
+                $__12 = $ctx.sent;
+                $ctx.state = 4;
+                break;
+              case 4:
+                $ctx.state = 6;
+                return "b";
+              case 6:
+                $__13 = $ctx.sent;
+                $ctx.state = 8;
+                break;
+              case 8:
+                $__14 = $__11.call(Math, $__12, $__13);
+                $ctx.state = 12;
+                break;
+              case 12:
+                $ctx.returnValue = $__14;
+                $ctx.state = -2;
+                break;
+              default:
+                return $ctx.end();
+            }
+        }, $__6, this);
+      }
+      var g = powGenerator();
+      expect(g.next().value).toEqual("a");
+      expect(g.next(10).value).toEqual("b");
+      expect(g.next(2).value).toEqual(100);
     }));
   }));
   return {};
