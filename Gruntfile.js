@@ -30,7 +30,7 @@ module.exports = function(grunt) {
                     src: ['*.js'],
                     dest: 'src/es5'
                 }]
-            }
+            },
         },
         karma: {
             options: {
@@ -62,6 +62,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
-    grunt.registerTask('default', ['traceur', 'karma:single']);
+    grunt.registerTask('default', ['traceur:', 'karma:single']);
 
 };

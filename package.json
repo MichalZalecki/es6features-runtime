@@ -18,5 +18,8 @@
     "karma-html-reporter": "^0.2.6",
     "karma-jasmine": "^0.3.5",
     "traceur": "0.0.82"
+  },
+  "dependencies": {
+    "es6-module-loader": "^0.13.0"
   }
 }
