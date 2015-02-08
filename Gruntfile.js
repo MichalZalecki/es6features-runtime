@@ -5,10 +5,25 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         traceur: {
             options: {
-                experimental: true,
-                moduleNames: false
+                experimental: true
+            },
+            modules: {
+                options: {
+                    moduleNaming: {
+                        stripPrefix: "src/es5"
+                    }
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/es6',
+                    src: ['modules/*.js'],
+                    dest: 'src/es5'
+                }]
             },
             custom: {
+                options: {
+                    moduleNames: false
+                },
                 files: [{
                     expand: true,
                     cwd: 'src/es6',
@@ -35,7 +50,7 @@ module.exports = function(grunt) {
                 interrupt: true
             },
             es6: {
-                files: ['src/es6/*.js'],
+                files: ['src/es6/**/*.js'],
                 tasks: ['traceur', 'karma:watch:run']
             }
         }

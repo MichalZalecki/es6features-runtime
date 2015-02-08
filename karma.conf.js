@@ -15,8 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/traceur-runtime/traceur-runtime.js',
-      'src/es5/*.js'
+        'bower_components/traceur-runtime/traceur-runtime.js',
+        'src/es5/modules/*.js',
+        'src/es5/*.js'
     ],
 
 
