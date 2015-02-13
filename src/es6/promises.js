@@ -17,43 +17,25 @@ describe("Promises", () => {
                 if (stepper.steps < 10000) {
                     resolve(stepper);
                 } else {
-                    reject(new Error("OKAAAYYY! That's enough now."));
+                    reject(new Error("OKAAAYYY! That's enough."));
                 }
             }, 100);
         });
     }
 
-    function firstPromise(...promises) {
-        return Promise.race(promises);
-    }
-
-    function waitForLastPromise(...promises) {
-        return Promise.all(promises);
-    }
-
-    let stepper;
+    let stepper, promises;
     beforeEach(() => {
         stepper = new Stepper();
-    });
-
-    it("should be resolved asynchronously", (done) => {
-        let msg;
-        Promise.resolve("Resolved!").then((m) => {
-            msg = m;
-            expect(msg).toEqual("Resolved!");
-            done();
-        });
-        expect(msg).toBeUndefined();
-    });
-
-    it("should be rejected asynchronously", (done) => {
-        let msg;
-        Promise.reject(new Error("Rejected!")).then(() => {}, (err) => {
-            msg = err.message;
-            expect(msg).toEqual("Rejected!");
-            done();
-        });
-        expect(msg).toBeUndefined();
+        promises = [];
+        promises.push(new Promise((resolve) => {
+            setTimeout(resolve, 100, 100);
+        }));
+        promises.push(new Promise((resolve) => {
+            setTimeout(resolve, 200, 200);
+        }));
+        promises.push(new Promise((resolve) => {
+            setTimeout(resolve, 150, 150);
+        }));
     });
 
     it("should be resolved", (done) => {
@@ -81,7 +63,7 @@ describe("Promises", () => {
         stepPromise(stepper.step(9999))
             .then((stepper) => stepPromise(stepper.step()))
             .then(() => {}, (err) => {
-                expect(err).toEqual(new Error("OKAAAYYY! That's enough now."));
+                expect(err).toEqual(new Error("OKAAAYYY! That's enough."));
                 done();
             });
     });
@@ -90,98 +72,89 @@ describe("Promises", () => {
         stepPromise(stepper.step(9999))
             .then((stepper) => stepPromise(stepper.step()))
             .catch((err) => {
-                expect(err).toEqual(new Error("OKAAAYYY! That's enough now."));
+                expect(err).toEqual(new Error("OKAAAYYY! That's enough."));
                 done();
             });
     });
 
-    it("should be resolved on first promise resolve", (done) => {
-        let promise100 = new Promise((resolve) => {
-            setTimeout(() => { resolve(100)} );
-        }, 100);
-        let promise200 = new Promise((resolve) => {
-            setTimeout(() => { resolve(200)} );
-        }, 200);
-        let promise300 = new Promise((resolve) => {
-            setTimeout(() => { resolve(300)} );
-        }, 300);
-
-        firstPromise(promise100, promise300, promise200)
-            .then((value) => {
-                expect(value).toEqual(100);
+    describe("Promise.resolve", () => {
+        it("should be resolved asynchronously", (done) => {
+            let msg;
+            Promise.resolve("Resolved!").then((m) => {
+                msg = m;
+                expect(msg).toEqual("Resolved!");
                 done();
             });
+            expect(msg).toBeUndefined();
+        });
     });
 
-    it("should be resolved on last promise resolve", (done) => {
-        let promise100 = new Promise((resolve) => {
-            setTimeout(() => { resolve(100)} );
-        }, 100);
-        let promise200 = new Promise((resolve) => {
-            setTimeout(() => { resolve(200)} );
-        }, 200);
-        let promise300 = new Promise((resolve) => {
-            setTimeout(() => { resolve(300)} );
-        }, 300);
-
-        waitForLastPromise(promise100, promise300, promise200)
-            .then((value) => {
-                expect(value).toEqual([100, 300, 200]);
+    describe("Promise.reject", () => {
+        it("should be rejected asynchronously", (done) => {
+            let msg;
+            Promise.reject(new Error("Rejected!")).then(() => {
+            }, (err) => {
+                msg = err.message;
+                expect(msg).toEqual("Rejected!");
                 done();
             });
+            expect(msg).toBeUndefined();
+        });
     });
 
-    it("should be rejected if one of passed promises has been rejected", (done) => {
-        let promise100 = new Promise((resolve) => {
-            setTimeout(() => { resolve(100)} );
-        }, 100);
-        let promise200 = new Promise((resolve, reject) => {
-            setTimeout(() => { reject(new Error(200))} );
-        }, 200);
-        let promise300 = new Promise((resolve) => {
-            setTimeout(() => { resolve(300)} );
-        }, 300);
+    describe("Promise.race", () => {
+        it("should be resolved on first promise resolve", (done) => {
+            Promise.race(promises)
+                .then((value) => {
+                    expect(value).toEqual(100);
+                    done();
+                });
+        });
 
-        waitForLastPromise(promise100, promise300, promise200)
-            .catch((err) => {
-                expect(err).toEqual(jasmine.any(Error));
-                done();
-            });
+        it("should be rejected if first promise has been rejected", (done) => {
+            promises.push(new Promise((resolve, reject) => {
+                setTimeout(reject, 50, new Error("Rejected"));
+            }));
+            Promise.race(promises)
+                .catch((err) => {
+                    expect(err).toEqual(jasmine.any(Error));
+                    expect(err.message).toEqual("Rejected");
+                    done();
+                });
+        });
+
+        it("should be rejected only if first promise has been rejected", (done) => {
+            promises.push(new Promise((resolve, reject) => {
+                setTimeout(reject, 150, new Error("Rejected"));
+            }));
+            Promise.race(promises)
+                .then((value) => {
+                    expect(value).toEqual(100);
+                    done();
+                });
+        });
     });
 
-    it("should be resolved or rejected, whichever happens first", (done) => {
-        let promise100 = new Promise((resolve) => {
-            setTimeout(() => { resolve(100)} );
-        }, 100);
-        let promise200 = new Promise((resolve, reject) => {
-            setTimeout(() => { reject(new Error(200))} );
-        }, 200);
-        let promise300 = new Promise((resolve) => {
-            setTimeout(() => { resolve(300)} );
-        }, 300);
+    describe("Promise.all", () => {
 
-        firstPromise(promise100, promise200)
-            .then((value) => {
-                expect(value).toEqual(100);
-                done();
-            });
-    });
+        it("should be resolved on last promise resolve", (done) => {
+            Promise.all(promises)
+                .then((values) => {
+                    expect(values).toEqual([100, 200, 150]);
+                    done();
+                });
+        });
 
-    it("should be resolved or rejected, whichever happens first", (done) => {
-        let promise100 = new Promise((resolve) => {
-            setTimeout(() => { resolve(100)} );
-        }, 100);
-        let promise200 = new Promise((resolve, reject) => {
-            setTimeout(() => { reject(new Error(200))} );
-        }, 200);
-        let promise300 = new Promise((resolve) => {
-            setTimeout(() => { resolve(300)} );
-        }, 300);
-
-        firstPromise(promise300, promise200)
-            .catch((err) => {
-                expect(err).toEqual(jasmine.any(Error));
-                done();
-            });
+        it("should be rejected if any promise has been rejected", (done) => {
+            promises.push(new Promise((resolve, reject) => {
+                setTimeout(reject, 150, new Error("Rejected"));
+            }));
+            Promise.all(promises)
+                .catch((err) => {
+                    expect(err).toEqual(jasmine.any(Error));
+                    expect(err.message).toEqual("Rejected");
+                    done();
+                });
+        });
     });
 });
