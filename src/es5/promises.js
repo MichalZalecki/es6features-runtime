@@ -108,7 +108,7 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
           resolve(300);
         }));
       }), 300);
-      firstPromise(promise100, promise200, promise300).then((function(value) {
+      firstPromise(promise100, promise300, promise200).then((function(value) {
         expect(value).toEqual(100);
         done();
       }));
@@ -131,6 +131,69 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
       }), 300);
       waitForLastPromise(promise100, promise300, promise200).then((function(value) {
         expect(value).toEqual([100, 300, 200]);
+        done();
+      }));
+    }));
+    it("should be rejected if one of passed promises has been rejected", (function(done) {
+      var promise100 = new Promise((function(resolve) {
+        setTimeout((function() {
+          resolve(100);
+        }));
+      }), 100);
+      var promise200 = new Promise((function(resolve, reject) {
+        setTimeout((function() {
+          reject(new Error(200));
+        }));
+      }), 200);
+      var promise300 = new Promise((function(resolve) {
+        setTimeout((function() {
+          resolve(300);
+        }));
+      }), 300);
+      waitForLastPromise(promise100, promise300, promise200).catch((function(err) {
+        expect(err).toEqual(jasmine.any(Error));
+        done();
+      }));
+    }));
+    it("should be resolved or rejected, whichever happens first", (function(done) {
+      var promise100 = new Promise((function(resolve) {
+        setTimeout((function() {
+          resolve(100);
+        }));
+      }), 100);
+      var promise200 = new Promise((function(resolve, reject) {
+        setTimeout((function() {
+          reject(new Error(200));
+        }));
+      }), 200);
+      var promise300 = new Promise((function(resolve) {
+        setTimeout((function() {
+          resolve(300);
+        }));
+      }), 300);
+      firstPromise(promise100, promise200).then((function(value) {
+        expect(value).toEqual(100);
+        done();
+      }));
+    }));
+    it("should be resolved or rejected, whichever happens first", (function(done) {
+      var promise100 = new Promise((function(resolve) {
+        setTimeout((function() {
+          resolve(100);
+        }));
+      }), 100);
+      var promise200 = new Promise((function(resolve, reject) {
+        setTimeout((function() {
+          reject(new Error(200));
+        }));
+      }), 200);
+      var promise300 = new Promise((function(resolve) {
+        setTimeout((function() {
+          resolve(300);
+        }));
+      }), 300);
+      firstPromise(promise300, promise200).catch((function(err) {
+        expect(err).toEqual(jasmine.any(Error));
         done();
       }));
     }));

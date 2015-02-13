@@ -106,7 +106,7 @@ describe("Promises", () => {
             setTimeout(() => { resolve(300)} );
         }, 300);
 
-        firstPromise(promise100, promise200, promise300)
+        firstPromise(promise100, promise300, promise200)
             .then((value) => {
                 expect(value).toEqual(100);
                 done();
@@ -127,6 +127,60 @@ describe("Promises", () => {
         waitForLastPromise(promise100, promise300, promise200)
             .then((value) => {
                 expect(value).toEqual([100, 300, 200]);
+                done();
+            });
+    });
+
+    it("should be rejected if one of passed promises has been rejected", (done) => {
+        let promise100 = new Promise((resolve) => {
+            setTimeout(() => { resolve(100)} );
+        }, 100);
+        let promise200 = new Promise((resolve, reject) => {
+            setTimeout(() => { reject(new Error(200))} );
+        }, 200);
+        let promise300 = new Promise((resolve) => {
+            setTimeout(() => { resolve(300)} );
+        }, 300);
+
+        waitForLastPromise(promise100, promise300, promise200)
+            .catch((err) => {
+                expect(err).toEqual(jasmine.any(Error));
+                done();
+            });
+    });
+
+    it("should be resolved or rejected, whichever happens first", (done) => {
+        let promise100 = new Promise((resolve) => {
+            setTimeout(() => { resolve(100)} );
+        }, 100);
+        let promise200 = new Promise((resolve, reject) => {
+            setTimeout(() => { reject(new Error(200))} );
+        }, 200);
+        let promise300 = new Promise((resolve) => {
+            setTimeout(() => { resolve(300)} );
+        }, 300);
+
+        firstPromise(promise100, promise200)
+            .then((value) => {
+                expect(value).toEqual(100);
+                done();
+            });
+    });
+
+    it("should be resolved or rejected, whichever happens first", (done) => {
+        let promise100 = new Promise((resolve) => {
+            setTimeout(() => { resolve(100)} );
+        }, 100);
+        let promise200 = new Promise((resolve, reject) => {
+            setTimeout(() => { reject(new Error(200))} );
+        }, 200);
+        let promise300 = new Promise((resolve) => {
+            setTimeout(() => { resolve(300)} );
+        }, 300);
+
+        firstPromise(promise300, promise200)
+            .catch((err) => {
+                expect(err).toEqual(jasmine.any(Error));
                 done();
             });
     });
