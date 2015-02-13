@@ -63,6 +63,6 @@ describe("Generators", () => {
         expect(g.next(2).value).toEqual(100);
     });
 
-    // @TODO ES6 Async Generators
+    // @TODO ES6/7 Async Generators
 
 });
