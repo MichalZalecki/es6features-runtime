@@ -1,15 +1,5 @@
 describe("Promises", () => {
 
-    class Stepper {
-        constructor() {
-            this.steps = 0;
-        }
-        step(n = 1) {
-            this.steps += n;
-            return this;
-        }
-    }
-
     function stepPromise(stepper) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -25,7 +15,13 @@ describe("Promises", () => {
 
     let stepper, promises;
     beforeEach(() => {
-        stepper = new Stepper();
+        stepper = {
+            steps: 0,
+            step(n = 1) {
+                this.steps += n;
+                return this;
+            }
+        };
         promises = [];
         promises.push(new Promise((resolve) => {
             setTimeout(resolve, 100, 100);

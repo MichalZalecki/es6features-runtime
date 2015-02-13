@@ -1,14 +1,6 @@
 $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   "use strict";
   describe("Promises", (function() {
-    var Stepper = function Stepper() {
-      this.steps = 0;
-    };
-    ($traceurRuntime.createClass)(Stepper, {step: function() {
-        var n = arguments[0] !== (void 0) ? arguments[0] : 1;
-        this.steps += n;
-        return this;
-      }}, {});
     function stepPromise(stepper) {
       return new Promise((function(resolve, reject) {
         setTimeout((function() {
@@ -23,7 +15,14 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
     var stepper,
         promises;
     beforeEach((function() {
-      stepper = new Stepper();
+      stepper = {
+        steps: 0,
+        step: function() {
+          var n = arguments[0] !== (void 0) ? arguments[0] : 1;
+          this.steps += n;
+          return this;
+        }
+      };
       promises = [];
       promises.push(new Promise((function(resolve) {
         setTimeout(resolve, 100, 100);
