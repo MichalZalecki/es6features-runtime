@@ -12,8 +12,9 @@ describe("Enhanced Object Literals", () => {
                 hi: function () { return "Hi!" },
                 by: function () { return "By!" }
             },
-            // Shorthand for greet: greet
+            // object initializer shorthand (greet: greet)
             greet
+            // @TODO making super calls
         };
         expect(obj[4]).toEqual("Computed Property Name");
         expect(obj.hi()).toEqual("Hi!");
