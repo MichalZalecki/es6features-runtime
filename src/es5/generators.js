@@ -1,7 +1,7 @@
 $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   "use strict";
   describe("Generators", (function() {
-    it("should make foo yielding", (function() {
+    it("should make functions yielding", (function() {
       var $__6 = $traceurRuntime.initGeneratorFunction(foo);
       function foo() {
         var i;
@@ -43,7 +43,7 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
       expect(seq.next().value).toEqual(2);
       expect(seq.next().value).toEqual(3);
     }));
-    it("should iterate fibonacci using yield", (function() {
+    it("should iterate generator using yield", (function() {
       function fibonacci(i) {
         var $__0;
         return ($__0 = {}, Object.defineProperty($__0, Symbol.iterator, {

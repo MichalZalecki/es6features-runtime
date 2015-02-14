@@ -1,4 +1,5 @@
 describe("Iterators and For Of", () => {
+
     it("should iterate fibonacci using next()", () => {
         function fibonacci(i) {
             return {
@@ -20,4 +21,5 @@ describe("Iterators and For Of", () => {
         }
         expect(fib).toEqual([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]);
     });
+
 });

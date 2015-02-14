@@ -1,5 +1,6 @@
 describe("Generators", () => {
-    it("should make foo yielding", () => {
+
+    it("should make functions yielding", () => {
         function* foo() {
             let i = 0;
             yield ++i;
@@ -13,7 +14,7 @@ describe("Generators", () => {
         expect(seq.next().value).toEqual(3);
     });
 
-    it("should iterate fibonacci using yield", () => {
+    it("should iterate generator using yield", () => {
         function fibonacci(i) {
             return {
                 [Symbol.iterator]: function*() {

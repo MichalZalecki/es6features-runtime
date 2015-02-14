@@ -1,7 +1,7 @@
 $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   "use strict";
   describe("Arrow Functions", (function() {
-    it("should be awesome", (function() {
+    it("should be a function shorthand", (function() {
       var square = (function(x) {
         return x * x;
       });

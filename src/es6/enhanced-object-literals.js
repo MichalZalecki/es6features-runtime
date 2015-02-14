@@ -1,10 +1,11 @@
 describe("Enhanced Object Literals", () => {
-    it("should be awesome", () => {
-        var x = 2;
+
+    it("should bring more flexibility when defining object properties", () => {
         function greet(name) {
             return "Hello " + name;
         }
-        var obj = {
+        let x = 2;
+        let obj = {
             // Computed property names
             [x*2]: "Computed Property Name",
             // __proto__
@@ -16,9 +17,11 @@ describe("Enhanced Object Literals", () => {
             greet
             // @TODO making super calls
         };
+
         expect(obj[4]).toEqual("Computed Property Name");
         expect(obj.hi()).toEqual("Hi!");
         expect(obj.by()).toEqual("By!");
         expect(obj.greet("Bob")).toEqual("Hello Bob");
     });
+
 });

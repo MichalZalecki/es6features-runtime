@@ -1,4 +1,5 @@
 describe("Destructuring Assignment", () => {
+
     it("should works for list matching", () => {
         let [a, , [b, c]] = [1, 2, [3, 4]];
         expect(a).toEqual(1);
@@ -32,4 +33,5 @@ describe("Destructuring Assignment", () => {
         let [a] = [1];
         expect(a).toEqual(1);
     });
+
 });

@@ -1,7 +1,7 @@
 $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   "use strict";
   describe("Default Parameters", (function() {
-    it("should be awesome", (function() {
+    it("should allow functions to have optional arguments", (function() {
       function f(list) {
         var indexA = arguments[1] !== (void 0) ? arguments[1] : 0;
         var indexB = arguments[2] !== (void 0) ? arguments[2] : list.length;

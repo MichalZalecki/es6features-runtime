@@ -1,7 +1,7 @@
 $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   "use strict";
   describe("Rest Parameters", (function() {
-    it("should be awesome", (function() {
+    it("should allow to to have variable number of\n        arguments without using the arguments object", (function() {
       function buy(where) {
         for (var items = [],
             $__0 = 1; $__0 < arguments.length; $__0++)

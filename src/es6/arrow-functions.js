@@ -1,35 +1,36 @@
 describe("Arrow Functions", () => {
-    it("should be awesome", () => {
 
-        var square = x => x * x;
+    it("should be a function shorthand", () => {
 
-        var square2 = x => {
+        let square = x => x * x;
+
+        let square2 = x => {
             return x * x;
         };
 
         // use brackets when more than one argument is needed
-        var triangleArea = (a, h) => a*h/2;
+        let triangleArea = (a, h) => a*h/2;
 
-        var triangleArea2 = (a, b, c) => {
-            var p = (a + b + c)/2;
+        let triangleArea2 = (a, b, c) => {
+            let p = (a + b + c)/2;
             return Math.sqrt(p*(p-a)*(p-b)*(p-c));
         };
 
         // immediate return of an object literal must be wrapped in parentheses
-        var objectify = x => ({ value: x });
+        let objectify = x => ({ value: x });
 
-        var person = {
+        let person = {
             name: "Bob",
             belongings: ["Car", "PC"],
             getProperties: function () {
-                var properties = [];
+                let properties = [];
                 this.belongings.forEach(function (thing) {
                     properties.push(this.name + " has " + thing);
                 });
                 return properties;
             },
             getProperties2: function () {
-                var properties = [];
+                let properties = [];
                 // arrows share this with surrounding code
                 this.belongings.forEach((thing) => {
                     properties.push(this.name + " has " + thing);
@@ -47,4 +48,5 @@ describe("Arrow Functions", () => {
             .toThrow(new TypeError("Cannot read property 'name' of undefined"));
         expect(person.getProperties2()).toEqual(["Bob has Car", "Bob has PC"]);
     });
+
 });

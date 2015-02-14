@@ -1,7 +1,7 @@
 $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   "use strict";
   describe("Block Scoped Binding", (function() {
-    it("should be awesome", (function() {
+    it("should provide scopes other than\n        the function and top level scope", (function() {
       (function() {
         var funcs = [];
         for (var $__0 = [4, 5, 6][$traceurRuntime.toProperty(Symbol.iterator)](),

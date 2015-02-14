@@ -1,12 +1,12 @@
 $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   "use strict";
   describe("Enhanced Object Literals", (function() {
-    it("should be awesome", (function() {
+    it("should bring more flexibility when defining object properties", (function() {
       var $__0;
-      var x = 2;
       function greet(name) {
         return "Hello " + name;
       }
+      var x = 2;
       var obj = ($__0 = Object.create({
         hi: function() {
           return "Hi!";

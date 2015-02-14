@@ -1,5 +1,7 @@
 describe("Rest Parameters", () => {
-    it("should be awesome", () => {
+
+    it(`should allow to to have variable number of
+        arguments without using the arguments object`, () => {
         function buy(where, ...items) {
             return "I'm going to " + where + " to buy "
                 + items.length + " items: "
@@ -11,4 +13,5 @@ describe("Rest Parameters", () => {
             .toEqual("I'm going to the mall to buy 4 items: "
                    + "jacket, bag, sweets and headphones.");
     });
+
 });

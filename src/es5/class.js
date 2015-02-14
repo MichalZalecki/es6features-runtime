@@ -1,6 +1,6 @@
 $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   "use strict";
-  describe("Classes", (function() {
+  describe("Class", (function() {
     it("should be syntactical sugar over the Objects and prototypes", (function() {
       var Point = function Point() {
         var x = arguments[0] !== (void 0) ? arguments[0] : 0;
@@ -44,4 +44,4 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   }));
   return {};
 });
-//# sourceURL=src/es6/classes.js
+//# sourceURL=src/es6/class.js

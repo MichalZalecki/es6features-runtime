@@ -1,5 +1,7 @@
 describe("Block Scoped Binding", () => {
-    it("should be awesome", () => {
+
+    it(`should provide scopes other than
+        the function and top level scope`, () => {
         // According MDN
         // var scope is its the enclosing function or global
         // let scope is the block, statement, or expression
@@ -55,4 +57,5 @@ describe("Block Scoped Binding", () => {
             expect(z).toEqual({x: 2});
         });
     });
+
 });
