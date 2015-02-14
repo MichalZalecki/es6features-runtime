@@ -5,10 +5,13 @@ Small project which helps you to start shaping up with ECMAScript 6 using
 the best way to start learning new stuff? **Unit testing!** That's why ES6
 Features Runtime is shipped with Karma and Jasmine.
 
-The code partly comes from [Traceur's wiki](https://github.com/google/traceur-compiler/wiki/LanguageFeatures)
+The code partly comes from [Traceur's wiki]
+(https://github.com/google/traceur-compiler/wiki/LanguageFeatures)
 and awesome [lukehoban/es6features](https://github.com/lukehoban/es6features)
-which I recommend to watch. Every other piece of code which isn't mine has a
-source mentioned in comment above the code.
+which I recommend to watch. It's also worth looking out [ECMAScript
+compatibility table](http://kangax.github.io/compat-table/es6/).
+Every other piece of code which isn't mine has a source mentioned in comment
+above the code.
 
 ## How to start
 
