@@ -1,9 +1,9 @@
 # ES6 Features Runtime
 
 Small project which helps you to start shaping up with ECMAScript 6 using
-[Traceur](https://github.com/google/traceur-compiler) compiler. What is
-the best way to start learning new stuff? **Unit testing!** That's why ES6
-Features Runtime is shipped with Karma and Jasmine.
+[Traceur](https://github.com/google/traceur-compiler) compiler. The bunch of
+**code samples** which are shipped with Karma and Jasmine to do
+**unit testing** and learn new stuff quickly.
 
 The code partly comes from [Traceur's wiki]
 (https://github.com/google/traceur-compiler/wiki/LanguageFeatures)
