@@ -13,6 +13,9 @@ compatibility table](http://kangax.github.io/compat-table/es6/).
 Every other piece of code which isn't mine has a source mentioned in comment
 above the code.
 
+Looking for minimal version? Check out this [gits]
+(https://gist.github.com/MichalZalecki/e740c05ddf9e626c6394)!
+
 ## How to start
 
 Run ``nmp test`` or ``karma start`` to start karma server and execute ``grunt
