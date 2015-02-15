@@ -8,10 +8,10 @@ describe("Arrow Functions", () => {
             return x * x;
         };
 
-        // use brackets when more than one argument is needed
         let triangleArea = (a, h) => a*h/2;
 
-        let triangleArea2 = (a, b, c) => {
+        // use brackets when more than one argument is needed
+        let triangleHeron = (a, b, c) => {
             let p = (a + b + c)/2;
             return Math.sqrt(p*(p-a)*(p-b)*(p-c));
         };
@@ -40,9 +40,9 @@ describe("Arrow Functions", () => {
         };
 
         expect(square(3)).toEqual(9);
-        expect(square2(4)).toEqual(16);
+        expect(square2(13)).toEqual(169);
         expect(triangleArea(4, 6)).toEqual(12);
-        expect(triangleArea2(3, 4, 5)).toEqual(6);
+        expect(triangleHeron(3, 4, 5)).toEqual(6);
         expect(objectify("awesome")).toEqual({value:"awesome"});
         expect(() => person.getProperties())
             .toThrow(new TypeError("Cannot read property 'name' of undefined"));

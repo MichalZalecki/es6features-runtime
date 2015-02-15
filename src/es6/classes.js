@@ -21,7 +21,7 @@ describe("Classes", () => {
                 super.update(x, y);
                 this.r = r;
             }
-           isPointIncluded(point) {
+            isPointIncluded(point) {
                 if (point.constructor != Point)
                     throw new Error("point must be an instance of Point");
 

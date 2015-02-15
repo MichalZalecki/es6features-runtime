@@ -11,7 +11,7 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
       var triangleArea = (function(a, h) {
         return a * h / 2;
       });
-      var triangleArea2 = (function(a, b, c) {
+      var triangleHeron = (function(a, b, c) {
         var p = (a + b + c) / 2;
         return Math.sqrt(p * (p - a) * (p - b) * (p - c));
       });
@@ -38,9 +38,9 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
         }
       };
       expect(square(3)).toEqual(9);
-      expect(square2(4)).toEqual(16);
+      expect(square2(13)).toEqual(169);
       expect(triangleArea(4, 6)).toEqual(12);
-      expect(triangleArea2(3, 4, 5)).toEqual(6);
+      expect(triangleHeron(3, 4, 5)).toEqual(6);
       expect(objectify("awesome")).toEqual({value: "awesome"});
       expect((function() {
         return person.getProperties();

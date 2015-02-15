@@ -4,8 +4,8 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
     describe("Set", (function() {
       it("should store unique values of any type", (function() {
         var s = new Set(["Foo", "Bar"]);
-        s.add(false).add(123).add("Baz");
-        expect(s.size).toEqual(5);
+        s.add(false).add(123).add("Bar");
+        expect(s.size).toEqual(4);
         expect(s.has("Bar")).toBe(true);
         expect(s.has(123)).toBe(true);
         expect(s.has(true)).toBe(false);
@@ -14,18 +14,16 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
         expect(setIter.next().value).toEqual(["Bar", "Bar"]);
         expect(setIter.next().value).toEqual([false, false]);
         expect(setIter.next().value).toEqual([123, 123]);
-        expect(setIter.next().value).toEqual(["Baz", "Baz"]);
         expect(setIter.next().value).toBeUndefined();
         var setIter2 = s.values();
         expect(setIter2.next().value).toEqual("Foo");
         expect(setIter2.next().value).toEqual("Bar");
         expect(setIter2.next().value).toEqual(false);
         expect(setIter2.next().value).toEqual(123);
-        expect(setIter2.next().value).toEqual("Baz");
         expect(setIter2.next().value).toBeUndefined();
         expect(s.delete("Bar")).toEqual(true);
         expect(s.has("Bar")).toEqual(false);
-        expect(s.size).toEqual(4);
+        expect(s.size).toEqual(3);
         s.clear();
         expect(s.size).toEqual(0);
       }));

@@ -30,7 +30,7 @@ describe("Template Literals", () => {
             "First name": "Foo",
             "Last name": "Bar",
             Email: "foo@example.com"
-        })
+        });
     });
 
 });
