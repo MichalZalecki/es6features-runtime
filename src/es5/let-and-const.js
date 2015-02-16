@@ -32,13 +32,13 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
         expect([funcs[0](), funcs[1](), funcs[2]()]).toEqual([4, 5, 6]);
       })();
       expect((function() {
-        {
+        if (true) {
           var x = 1;
         }
         expect(x).toEqual(1);
       })).not.toThrowError();
       expect((function() {
-        {
+        if (true) {
           var x$__3 = 1;
         }
         expect(x).toEqual(1);

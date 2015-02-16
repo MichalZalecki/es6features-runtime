@@ -23,21 +23,21 @@ describe("Block Scoped Binding", () => {
         })();
 
         expect(() => {
-            {
+            if (true) {
                 var x = 1;
             }
             expect(x).toEqual(1);
         }).not.toThrowError();
 
         expect(() => {
-            {
+            if (true) {
                 let x = 1;
             }
             expect(x).toEqual(1);
         }).toThrowError("x is not defined");
 
         expect(() => {
-            {
+            if (true) {
                 const x = 1;
             }
             expect(x).toEqual(1);
