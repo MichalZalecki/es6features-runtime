@@ -44,7 +44,7 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
         expect(x).toEqual(1);
       })).toThrowError("x is not defined");
       expect((function() {
-        {
+        if (true) {
           var x$__4 = 1;
         }
         expect(x).toEqual(1);

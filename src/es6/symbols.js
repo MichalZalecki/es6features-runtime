@@ -11,6 +11,9 @@ describe("Symbols", () => {
         expect(s).not.toEqual(s2);
         expect(s2).toEqual(Symbol.for("foo"));
         expect(Symbol.keyFor(s2)).toEqual("foo");
+
+        expect(Symbol("bar")).not.toBe(Symbol("bar"));
+        expect(Symbol.for("bar")).toBe(Symbol.for("bar"));
     });
 
     it("should enable access control for object state", () => {
