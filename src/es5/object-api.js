@@ -128,4 +128,4 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   }));
   return {};
 });
-//# sourceURL=src/es6/object.js
+//# sourceURL=src/es6/object-api.js
