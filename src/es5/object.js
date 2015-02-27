@@ -1,11 +1,11 @@
 $traceurRuntime.ModuleStore.getAnonymousModule(function() {
   "use strict";
   describe('Object', (function() {
-    describe('.is() ', (function() {
+    describe('.is(o1, o2) ', (function() {
       it('should determines whether two values are the same value', (function() {
-        var a = {};
-        var b = a;
-        var c = {};
+        var a = {},
+            b = a,
+            c = {};
         expect(Object.is()).toEqual(true);
         expect(Object.is(a, b)).toEqual(true);
         expect(Object.is(null, null)).toEqual(true);
@@ -58,8 +58,8 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
         });
       }));
     }));
-    describe('.observe() [ES7!]', (function() {
-      it('', (function(done) {
+    describe('.observe(changesArray) [ES7!]', (function() {
+      it('should observing the changes asynchronously', (function(done) {
         var person = {
           alias: "Foo",
           age: 20
@@ -88,7 +88,41 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
             name: 'age'
           }]);
           done();
-        }, 1);
+        }, 0);
+      }));
+    }));
+    describe('.setPrototypeOf(o, proto)', (function() {
+      it('should set the prototype (get rid of __proto__)', (function() {
+        var a = {name: 'Bar'};
+        Object.setPrototypeOf(a, {
+          name: 'Foo',
+          hello: function() {
+            return ("Hello, " + this.name + "!");
+          }
+        });
+        expect(Object.keys(a)).toEqual(['name']);
+        expect(Object.keys(a.__proto__)).toEqual(['name', 'hello']);
+        expect(a.hello()).toEqual('Hello, Bar!');
+      }));
+    }));
+    describe('.getOwnPropertySymbols(o)', (function() {
+      it('should return symbol properties of given object', (function() {
+        var $__0,
+            $__1;
+        var a = ($__0 = {}, Object.defineProperty($__0, Symbol.for('foo'), {
+          value: 1,
+          configurable: true,
+          enumerable: true,
+          writable: true
+        }), $__0);
+        Object.setPrototypeOf(a, ($__1 = {}, Object.defineProperty($__1, Symbol.for('bar'), {
+          value: 2,
+          configurable: true,
+          enumerable: true,
+          writable: true
+        }), $__1));
+        expect(Object.getOwnPropertyNames(a)).toEqual([]);
+        expect(Object.getOwnPropertySymbols(a)).toEqual([Symbol.for('foo')]);
       }));
     }));
   }));

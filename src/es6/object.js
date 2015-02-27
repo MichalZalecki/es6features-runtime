@@ -1,12 +1,12 @@
 describe('Object', () => {
 
-    describe('.is() ', () => {
+    describe('.is(o1, o2) ', () => {
 
         it('should determines whether two values are the same value', () => {
 
-            let a = {};
-            let b = a;
-            let c = {};
+            let a = {},
+                b = a,
+                c = {};
 
             expect(Object.is()).toEqual(true); // undefined, undefined
             expect(Object.is(a, b)).toEqual(true);
@@ -64,9 +64,9 @@ describe('Object', () => {
 
     });
 
-    describe('.observe() [ES7!]', () => {
+    describe('.observe(changesArray) [ES7!]', () => {
 
-        it('', (done) => {
+        it('should observing the changes asynchronously', (done) => {
 
             var person = {
                 alias: "Foo",
@@ -90,7 +90,49 @@ describe('Object', () => {
                     {type: 'add'   , object: person, name: 'age'}
                 ]);
                 done();
-            }, 1);
+            }, 0);
+
+        });
+
+    });
+
+    describe('.setPrototypeOf(o, proto)', () => {
+
+        it('should set the prototype (get rid of __proto__)', () => {
+
+            var a = {
+                name: 'Bar'
+            };
+
+            Object.setPrototypeOf(a, {
+                name: 'Foo',
+                hello() {
+                    return `Hello, ${this.name}!`;
+                }
+            });
+
+            expect(Object.keys(a)).toEqual(['name']);
+            expect(Object.keys(a.__proto__)).toEqual(['name', 'hello']);
+            expect(a.hello()).toEqual('Hello, Bar!');
+
+        });
+
+    });
+
+    describe('.getOwnPropertySymbols(o)', () => {
+
+        it('should return symbol properties of given object', () => {
+
+            var a = {
+                [Symbol.for('foo')]: 1
+            };
+
+            Object.setPrototypeOf(a, {
+                [Symbol.for('bar')]: 2
+            });
+
+            expect(Object.getOwnPropertyNames(a)).toEqual([]);
+            expect(Object.getOwnPropertySymbols(a)).toEqual([Symbol.for('foo')]);
 
         });
 
