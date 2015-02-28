@@ -18,14 +18,15 @@ describe("Symbols", () => {
 
     it("should enable access control for object state", () => {
 
-        function MyClass(secretData) {
-            let s = Symbol("secretData symbol");
+        function Safe(secretData) {
+            let s = Symbol("secret symbol");
             this[s] = secretData;
         }
 
-        let obj = new MyClass("secret");
+        let obj = new Safe("secret");
 
-        expect(obj["secret"]).toBeUndefined();
+        expect(obj["secret symbol"]).toBeUndefined();
+        expect(obj[Symbol("secret symbol")]).toBeUndefined();
         expect(Object.getOwnPropertySymbols(obj)).toEqual(jasmine.any(Array));
         expect(obj[Object.getOwnPropertySymbols(obj)[0]])
             .toEqual("secret");

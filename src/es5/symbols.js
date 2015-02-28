@@ -13,12 +13,13 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
       expect(Symbol.for("bar")).toBe(Symbol.for("bar"));
     }));
     it("should enable access control for object state", (function() {
-      function MyClass(secretData) {
-        var s = Symbol("secretData symbol");
+      function Safe(secretData) {
+        var s = Symbol("secret symbol");
         this[s] = secretData;
       }
-      var obj = new MyClass("secret");
-      expect(obj["secret"]).toBeUndefined();
+      var obj = new Safe("secret");
+      expect(obj["secret symbol"]).toBeUndefined();
+      expect(obj[Symbol("secret symbol")]).toBeUndefined();
       expect(Object.getOwnPropertySymbols(obj)).toEqual(jasmine.any(Array));
       expect(obj[Object.getOwnPropertySymbols(obj)[0]]).toEqual("secret");
     }));
